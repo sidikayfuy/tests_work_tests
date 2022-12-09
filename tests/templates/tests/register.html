@@ -1,0 +1,49 @@
+{% extends 'tests/layout.html' %}
+
+{% block title %}
+    Регистрация
+{% endblock %}
+
+{% block content %}
+    <div class="container col-sm-5">
+        <h1>Регистрация</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="control-group mb-3" id="div_id_username">
+                <label for="id_username" class="form-label control-label requiredField">Логин</label>
+                <div class="controls">
+                    <input type="text" name="username" maxlength="150" autofocus="" class="form-control textinput textInput" autocomplete="username" required="" id="id_username">
+                    <p id="hint_id_username" class="help-block">Длина не более 150 символов.</p>
+                </div>
+            </div>
+
+            <div class="control-group mb-3" id="div_id_password1">
+                <label for="id_password1" class="form-label control-label requiredField">Пароль</label>
+                <div class="controls">
+                    <input type="password" name="password1" autocomplete="new-password" class="form-control textinput textInput" id="id_password1">
+                    <p id="hint_id_password1" class="help-block">Придумайте пароль, для входа в аккаунт.</p>
+                    <ul>
+                        <li>Ваш пароль не должен быть слишком похож на другую личную информацию.</li>
+                        <li>Ваш пароль должен содержать не менее 8 символов.</li>
+                        <li>Ваш пароль не может быть широко используемым паролем.</li>
+                        <li>Ваш пароль не может быть полностью числовым.</li>
+                    </ul>
+                    <p></p>
+                </div>
+            </div>
+
+            <div class="control-group mb-3" id="div_id_password2">
+                <label for="id_password2" class="form-label control-label requiredField">Повторите пароль</label>
+                <div class="controls">
+                    <input type="password" name="password2" autocomplete="new-password" class="form-control textinput textInput" id="id_password2">
+                    <p id="hint_id_password2" class="help-block">Введите тот же пароль, что и раньше, для проверки.</p>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-check-label" for="exampleCheck1">Если вы уже зарегистрированы, то <a href="{% url 'login' %}">войдите</a></label>
+            </div>
+            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+        </form>
+    </div>
+{% endblock %}

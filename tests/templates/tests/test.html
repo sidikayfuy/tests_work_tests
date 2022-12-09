@@ -1,0 +1,20 @@
+{% extends 'tests/layout.html' %}
+
+{% block title %}
+    {{ test.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="container text-center">
+        <div class="title">
+            <h1>{{ test.title }}</h1>
+        </div>
+
+        <div class="info my-5">
+            <h5 class="card-title">Количество вопросов: {{ test.question_set.count }}</h5>
+            <p class="card-text">Тест по математике для начальной школы</p>
+        </div>
+
+        <a href="{% url 'start_test' id=test.id %}" class="btn btn-primary">Начать</a>
+    </div>
+{% endblock %}

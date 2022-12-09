@@ -1,0 +1,20 @@
+{% extends 'tests/layout.html' %}
+
+{% block title %}
+    Главная
+{% endblock %}
+
+{% block content %}
+    {% for test in tests %}
+        <div class="card">
+            <h5 class="card-header">{{ test.title }}</h5>
+            <div class="card-body">
+                <h5 class="card-title">Количество вопросов: {{ test.question_set.count }}</h5>
+                <p class="card-text">Тест по математике для начальной школы</p>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'test' id=test.id %}" class="btn btn-primary">Перейти к тесту</a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

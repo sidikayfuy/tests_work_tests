@@ -1,0 +1,22 @@
+{% extends 'tests/layout.html' %}
+
+{% block title %}
+    Результат теста "{{ result.test.title }}"
+{% endblock %}
+
+{% block content %}
+    <h1>Результат теста "{{ result.test.title }}"</h1>
+    <h3>Процент правильных ответов: {{ result.percent }}</h3>
+    <h3>Количество правильных ответов: {{ right }}</h3>
+    <h3>Количество не правильных ответов: {{ not_right }}</h3>
+    <h3>Ответы:</h3>
+    {% for question in result.test.question_set.all %}
+        {% for k, v in answers %}
+            {% if question.id|slugify == k %}
+                <p>{{ k }}. Вопрос: {{ question.text }}</p>
+                <p>Мой ответ: {% for i in v %}{{ i }}; {% endfor %}</p>
+                <p>Правильный ответ: {% for i in question.answer_set.all %}{% if i.right == True%}{{ i }}; {% endif %}{% endfor %}</p>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

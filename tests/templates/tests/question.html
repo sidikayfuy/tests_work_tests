@@ -1,0 +1,45 @@
+{% extends 'tests/layout.html' %}
+
+{% block title %}
+    {{ test.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="title">
+            <h1>Вопрос: {{ question.text }}</h1>
+        </div>
+
+        <div class="info my-5">
+            <h5>Ответы:</h5>
+            <form oninvalid method="POST">
+                {% csrf_token %}
+                <input type="text" id="this_question_id" name="this_question_id" value="{{ question.id }}" hidden>
+
+                {% if right_answers_count >= 2 %}
+                    <p>*Может быть несколько вариантов ответов</p>
+                    {% for answer in question.answer_set.all %}
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" value="{{ answer.text }}" name="answer" class="form-check-input check-answer answer" id="exampleCheck{{ answer.id }}">
+                            <label class="form-check-label" for="exampleCheck{{ answer.id }}">{{ answer.text }}</label>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {% for answer in question.answer_set.all %}
+                        <div class="mb-3 form-check">
+                            <input type="radio" value="{{ answer.text }}" name="answer" class="form-check-input radio-answer answer" name="flexRadioDefault" id="exampleCheck{{ answer.id }}">
+                            <label class="form-check-label" for="exampleCheck{{ answer.id }}">{{ answer.text }}</label>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                {% if test.question_set.count == question.id %}
+                    <button type="submit" class="btn btn-primary" id="next-question" disabled>Заврешить</button>
+                {% else %}
+                    <button type="submit" class="btn btn-primary" id="next-question" disabled>Далее</button>
+                {% endif %}
+            </form>
+        </div>
+
+    </div>
+{% endblock %}
